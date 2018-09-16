@@ -2,7 +2,7 @@
 lock "~> 3.11.0"
 
 set :application, "rails_ci_cd"
-set :repo_url, "git@github.com:JamesYang76/rails_ci_cd.git"
+set :repo_url, "git@github.com:JamesYang76/react_rails.git"
 
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 set :user, "deploy"
@@ -38,7 +38,7 @@ namespace :deploy do
   before 'check:linked_files', 'puma:config'
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
-  after  :finishing,    'puma:restart'
+
 
   desc 'Restart nginx'
   task :restart do
