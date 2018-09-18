@@ -19,7 +19,7 @@ require 'capistrano/nginx'
 require 'capistrano/rvm'
 require 'capistrano/puma'
 require 'capistrano/puma/nginx'
-require 'capistrano/rails/migrations'
+#require 'capistrano/rails/migrations' default migration
 require 'capistrano/rails/assets'
 require 'capistrano/rails/db'
 require 'capistrano/rails/console'

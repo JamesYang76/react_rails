@@ -37,9 +37,11 @@ namespace :deploy do
   before 'check:linked_files', 'config:push'
   before 'check:linked_files', 'puma:config'
   after  :finishing,    :compile_assets
+  after :finishing, 'deploy:db:setup'
   after  :finishing,    :cleanup
 
-  after 'deploy:migrate', 'deploy:db:seed'
+
+
 
   desc 'Restart nginx'
   task :restart do
