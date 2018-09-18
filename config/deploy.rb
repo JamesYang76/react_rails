@@ -40,16 +40,17 @@ namespace :deploy do
  # after :finishing, 'deploy:drop'
  # after :finishing, 'deploy:db:setup'
  # after  :finishing,  :cleanup
-  before 'deploy:cleanup',  'deploy:database_drop'
-  before 'deploy:cleanup', 'deploy:db:setup'
+  before 'deploy:cleanup',  'deploy:database_setup'
+
 
 
   desc "Drop database"
-  task :database_drop do
+  task :database_setup do
     on roles(:all) do
       within release_path do
         with rails_env: fetch(:stage) do
           execute :rake, 'db:drop', 'DISABLE_DATABASE_ENVIRONMENT_CHECK=1'
+          execute :rake, 'db:setup'
         end
       end
     end
