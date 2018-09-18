@@ -36,11 +36,24 @@ set :puma_preload_app, false
 namespace :deploy do
   before 'check:linked_files', 'config:push'
   before 'check:linked_files', 'puma:config'
-  after  :finishing,    'deploy:db:drop'
-  after :finishing, 'deploy:db:setup'
-  after  :finishing,    :cleanup
+ # after  :finishing,  :compile_assets
+ # after :finishing, 'deploy:drop'
+ # after :finishing, 'deploy:db:setup'
+ # after  :finishing,  :cleanup
+  before 'deploy:cleanup',  'deploy:database_drop'
+  before 'deploy:cleanup', 'deploy:db:setup'
 
 
+  desc "Drop database"
+  task :database_drop do
+    on roles(:all) do
+      within release_path do
+        with rails_env: fetch(:stage) do
+          execute :rake, 'db:drop', 'DISABLE_DATABASE_ENVIRONMENT_CHECK=1'
+        end
+      end
+    end
+  end
 
 
   desc 'Restart nginx'
