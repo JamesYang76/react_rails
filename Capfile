@@ -18,9 +18,9 @@ require 'capistrano/nginx'
 require 'capistrano/rvm'
 require 'capistrano/puma'
 require 'capistrano/puma/nginx'
-
-require 'capistrano/bundler' # Rails needs Bundler, right?
-require 'capistrano/rails/assets'
+require 'capistrano/rails'
+#require 'capistrano/bundler' # Rails needs Bundler, right?
+#require 'capistrano/rails/assets'
 #require 'capistrano/rails/migrations' default migration
 require 'capistrano/rails/db'
 require 'capistrano/rails/console'
