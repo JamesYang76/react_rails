@@ -6,5 +6,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :fruits, only: [:index, :create, :destroy, :update]
     end
+    namespace :v2 do
+      jsonapi_resources :fruits
+    end
   end
 end
