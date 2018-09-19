@@ -12,6 +12,8 @@ class Body extends React.Component {
     this.addNewFruit = this.addNewFruit.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
     this.deleteFruit = this.deleteFruit.bind(this)
+    this.handleUpdate = this.handleUpdate.bind(this);
+    this.updateFruit = this.updateFruit.bind(this)
   }
   handleFormSubmit(name, description){
     let body = JSON.stringify({fruit: {name: name, description:   description} })
@@ -40,6 +42,19 @@ class Body extends React.Component {
     })
   }
 
+  handleUpdate(fruit){
+    fetch(`http://localhost:3000/api/v1/fruits/${fruit.id}`,
+      {
+        method: 'PUT',
+        body: JSON.stringify({fruit: fruit}),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then((response) => {
+      this.updateFruit(fruit)
+    })
+  }
+
   addNewFruit(fruit){
     this.setState({
       fruits: this.state.fruits.concat(fruit)
@@ -48,6 +63,14 @@ class Body extends React.Component {
 
   deleteFruit(id){
     let newFruits = this.state.fruits.filter((fruit) => fruit.id !== id)
+    this.setState({
+      fruits: newFruits
+    })
+  }
+
+  updateFruit(fruit){
+    let newFruits = this.state.fruits.filter((f) => f.id !== fruit.id)
+    newFruits.push(fruit)
     this.setState({
       fruits: newFruits
     })
@@ -62,7 +85,10 @@ class Body extends React.Component {
     return(
       <div>
         <NewFruit handleFormSubmit={this.handleFormSubmit}/>
-        <AllFruites fruits={this.state.fruits} handleDelete={this.handleDelete} />
+        <AllFruites
+          fruits={this.state.fruits} handleDelete={this.handleDelete}
+          handleUpdate = {this.handleUpdate}
+        />
       </div>
     )
   }
