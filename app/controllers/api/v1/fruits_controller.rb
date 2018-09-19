@@ -1,4 +1,5 @@
 class Api::V1::FruitsController < ApplicationController
+  protect_from_forgery with: :null_session
   def index
     render json: Fruit.all
   end

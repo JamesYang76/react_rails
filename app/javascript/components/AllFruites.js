@@ -1,15 +1,15 @@
 
 import React from "react"
-
+import Fruit from "./Fruit"
 const AllFruites = (props) => {
   var fruits = props.fruits.map((fruit) => {
-    return (
+    return(
       <div key={fruit.id}>
-        <h1>{fruit.name}</h1>
-        <p>{fruit.description}</p>
+        <Fruit fruit={fruit} handleDelete={props.handleDelete}/>
       </div>
     )
   })
+
   return (
     <div>
       {fruits}
