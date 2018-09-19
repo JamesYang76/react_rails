@@ -1,11 +1,12 @@
-import React from "react"
-import AllFruites from "./AllFruites";
+import Body from "./Body";
+import React from "react";
+
 
 const Main = (props) => {
   return(
     <div>
       <h1>Fruits are great!</h1>
-      <AllFruites />
+      <Body />
     </div>
   )
 };
