@@ -68,7 +68,7 @@ group :development do
   gem 'capistrano-upload-config'
   gem 'sshkit-sudo'
   gem 'rspec-rails'
-  gem "database_cleaner"
+  gem 'database_cleaner'
 end
 
 group :test do
