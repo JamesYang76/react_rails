@@ -17,7 +17,7 @@ class Body extends React.Component {
   }
   handleFormSubmit(name, description){
     let body = JSON.stringify({fruit: {name: name, description:   description} })
-    fetch('http://localhost:3000/api/v1/fruits', {
+    fetch('/api/v1/fruits', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -30,7 +30,7 @@ class Body extends React.Component {
   }
 
   handleDelete(id){
-    fetch(`http://localhost:3000/api/v1/fruits/${id}`,
+    fetch(`/api/v1/fruits/${id}`,
       {
         method: 'DELETE',
         headers: {
@@ -43,7 +43,7 @@ class Body extends React.Component {
   }
 
   handleUpdate(fruit){
-    fetch(`http://localhost:3000/api/v1/fruits/${fruit.id}`,
+    fetch(`/api/v1/fruits/${fruit.id}`,
       {
         method: 'PUT',
         body: JSON.stringify({fruit: fruit}),
