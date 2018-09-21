@@ -5,6 +5,7 @@ class Api::V1::FruitsController < ApplicationController
   end
 
   def create
+    Rails.logger.debug "FruitsController create"
     fruit = Fruit.create(fruit_params)
     render json: fruit
   end
