@@ -1,37 +1,67 @@
 import React, { Component } from "react";
-import Form from "react-jsonschema-form";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import BasicSchema from "./BasicSchema"
+const basePath = "/basic_schema";
 
 
-const schema = {
-  title: "Todo",
-  type: "object",
-  required: ["title"],
-  properties: {
-    title: {type: "string", title: "Title", default: "A new task"},
-    done: {type: "boolean", title: "Done?", default: false}
-  }
-};
+const Basic = () => (
+  <Router>
+    <div>
+      <ul>
+        <li>
+          <Link to={`${basePath}`}>Basic Schema From</Link>
+        </li>
+        <li>
+          <Link to={`${basePath}/about`}>About</Link>
+        </li>
+        <li>
+          <Link to={`${basePath}/topics`}>Topics</Link>
+        </li>
+      </ul>
 
-const formData = {
-  title: "First task",
-  done: true
-};
+      <hr />
 
-const log = (type) => console.log.bind(console, type);
-const onSubmit = ({formData}) => console.log("Data submitted: ",  formData);
-const onError = (errors) => console.log("I have", errors.length, "errors to fix");
+      <Route exact path={`${basePath}`} component={BasicSchema} />
+      <Route path={`${basePath}/about`} component={About} />
+      <Route path={`${basePath}/topics`} component={Topics} />
+    </div>
+  </Router>
+);
 
-class Basic extends React.Component {
-  render () {
-    return (
-        <Form schema={schema}
-              formData={formData}
-              onChange={log("changed")}
-              onSubmit={onSubmit}
-              onError={onError} />
-    );
-  }
-}
+const About = () => (
+  <div>
+    <h2>About</h2>
+  </div>
+);
 
+const Topics = ({ match }) => (
+  <div>
+    <h2>Topics</h2>
+    <ul>
+      <li>
+        <Link to={`${match.url}/rendering`}>Rendering with React</Link>
+      </li>
+      <li>
+        <Link to={`${match.url}/components`}>Components</Link>
+      </li>
+      <li>
+        <Link to={`${match.url}/props-v-state`}>Props v. State</Link>
+      </li>
+    </ul>
 
-export default Basic
+    <Route path={`${match.url}/:topicId`} component={Topic} />
+    <Route
+      exact
+      path={match.url}
+      render={() => <h3>Please select a topic.</h3>}
+    />
+  </div>
+);
+
+const Topic = ({ match }) => (
+  <div>
+    <h3>{match.params.topicId}</h3>
+  </div>
+);
+
+export default Basic;
