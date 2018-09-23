@@ -33,8 +33,8 @@ class Fruit extends React.Component{
 
     return(
       <div>
-        <h1>{name}</h1>
-        <p>{description}</p>
+        {name}
+        {description}
         <button onClick={() => this.handleEdit()}>{this.state.editable? 'Submit' : 'Edit'}</button>
         <button onClick={() => this.props.handleDelete(this.props.fruit.id)}>Delete</button>
       </div>
