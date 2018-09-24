@@ -81,17 +81,46 @@ class ContactSchema extends React.Component {
       }
     });
 
-    fetch('/api/v2/contacts', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/vnd.api+json'
-      },
-      body: submitData,
-    }).then((response) => {
-      const basePath = "/basic_schema";
-      //window.location.href =`${basePath}/contacts`;
-      this.props.history.push("/basic_schema/contacts");
-    });
+    if ( this.props.match.params.id == undefined ) {
+      fetch('/api/v2/contacts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/vnd.api+json'
+        },
+        body: submitData,
+      }).then((response) => {
+        const basePath = "/basic_schema";
+        //window.location.href =`${basePath}/contacts`;
+        this.props.history.push("/basic_schema/contacts");
+      });
+    }
+    else {
+      let fetch_url = `/api/v2/contacts/${this.props.match.params.id}`;
+      let submitEditData =  JSON.stringify({
+        data: {
+          id: this.props.match.params.id,
+          type: "contacts",
+          attributes: {
+            "name-first": formData.name_first,
+            "name-last": formData.name_last,
+            "email": formData.email
+          }
+        }
+      });
+      fetch(fetch_url, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/vnd.api+json'
+        },
+        body: submitEditData,
+      }).then((response) => {return response.json()})
+        .then((responseData) => {
+        const basePath = "/basic_schema";
+        //window.location.href =`${basePath}/contacts`;
+        console.log(responseData);
+        this.props.history.push("/basic_schema/contacts");
+      });
+    }
   }
 
 
