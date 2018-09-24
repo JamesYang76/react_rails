@@ -31,6 +31,8 @@ const uiSchema= {
   }
 };
 
+
+
 const log = (type) => console.log.bind(console, type);
 
 
@@ -40,6 +42,30 @@ class ContactSchema extends React.Component {
 
   constructor(props) {
     super(props);
+    console.log("ContactSchema constructor: prop = ", props);
+    this.state = {
+      formData: {}
+    };
+  }
+
+  componentDidMount() {
+    if (this.props.match.params.id == undefined) {
+      return;
+    }
+    let fetch_url = `/api/v2/contacts/${this.props.match.params.id}`;
+
+    fetch(fetch_url)
+    .then((response) => {return response.json()})
+    .then((responseData) => {
+      console.log("responseData = ", responseData);
+      this.setState({
+        formData: {
+          "name_first": responseData.data.attributes["name-first"],
+          "name_last": responseData.data.attributes["name-last"],
+          "email": responseData.data.attributes["email"]
+        }
+      });
+    })
   }
 
   onSubmit = ({formData}) => {
@@ -73,6 +99,7 @@ class ContactSchema extends React.Component {
     return (
       <Form schema={schema}
             uiSchema={uiSchema}
+            formData={this.state.formData}
             onChange={log("changed")}
             onSubmit={this.onSubmit}
             onError={onError} />

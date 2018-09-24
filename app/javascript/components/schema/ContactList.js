@@ -35,7 +35,7 @@ class ContactList extends React.Component {
           <td>{contact.name_first}</td>
           <td>{contact.name_last}</td>
           <td>{contact.email}</td>
-          <td></td>
+          <td><Link to={`${basePath}/contacts/${contact.id}/edit`}>Edit</Link></td>
         </tr>
       )
     });
@@ -50,7 +50,7 @@ class ContactList extends React.Component {
               <th>First name</th>
               <th>Last name</th>
               <th>Email</th>
-              <th></th>
+              <th>Edit</th>
             </tr>
           </thead>
           <tbody>
