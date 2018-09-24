@@ -1,6 +1,6 @@
 import React from "react";
 import Form from "react-jsonschema-form";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect, Link } from "react-router-dom";
 
 const schema = {
   title: "Contact Form",
@@ -59,9 +59,8 @@ class ContactSchema extends React.Component {
       body: submitData,
     }).then((response) => {
       const basePath = "/basic_schema";
-      window.location.href =`${basePath}/contact`;
+      window.location.href =`${basePath}/contacts`;
     });
-
   }
 
 

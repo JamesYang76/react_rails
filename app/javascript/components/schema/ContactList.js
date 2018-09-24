@@ -43,7 +43,7 @@ class ContactList extends React.Component {
     return (
       <div>
         <h1>ContactList</h1>
-        <Link to={`${basePath}/contact/create`}>Create Contact</Link>
+        <Link to={`${basePath}/contacts/new`}>Create Contact</Link>
         <table>
           <thead>
             <tr>

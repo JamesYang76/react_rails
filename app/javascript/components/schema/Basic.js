@@ -36,7 +36,7 @@ const Basic = () => (
       <Route path={`${basePath}/simple`} component={SimpleSchema} />
       <Route path={`${basePath}/nested`} component={NestedSchema} />
       <Route exact path={`${basePath}/contacts`} component={ContactList} />
-      <Route exact path={`${basePath}/contact/create`} component={ContactSchema} />
+      <Route exact path={`${basePath}/contacts/new`} component={ContactSchema} />
     </div>
   </Router>
 );
