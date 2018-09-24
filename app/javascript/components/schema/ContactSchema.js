@@ -1,5 +1,6 @@
 import React from "react";
 import Form from "react-jsonschema-form";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 const schema = {
   title: "Contact Form",
@@ -37,11 +38,6 @@ const onError = (errors) => console.log("I have", errors.length, "errors to fix"
 
 class ContactSchema extends React.Component {
 
-  componentDidMount(){
-    fetch('/api/v2/contacts')
-      .then((response) => { console.log("Response  ", response); });
-  }
-
   onSubmit = ({formData}) => {
     console.log("Data submitted ", formData);
     let submitData =  JSON.stringify({
@@ -62,25 +58,10 @@ class ContactSchema extends React.Component {
       },
       body: submitData,
     }).then((response) => {
-      console.log("Response  ", response);
+      const basePath = "/basic_schema";
+      window.location.href =`${basePath}/contact`;
     });
 
-
-
-
-    /*
-    let body = JSON.stringify({fruit: {name: name, description:   description} })
-    fetch('/api/v1/fruits', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: body,
-    }).then((response) => {return response.json()})
-      .then((fruit)=>{
-        this.addNewFruit(fruit)
-      })
-      */
   }
 
 
