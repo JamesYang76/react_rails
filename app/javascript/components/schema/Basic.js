@@ -14,7 +14,7 @@ const Basic = () => (
     <div>
       <ul>
         <li>
-          <Link to={`${basePath}/contact`}>Contract</Link>
+          <Link to={`${basePath}/contacts`}>Contract</Link>
         </li>
 
         <li>
@@ -35,7 +35,7 @@ const Basic = () => (
       <Route exact path={`${basePath}`} component={BasicSchema} />
       <Route path={`${basePath}/simple`} component={SimpleSchema} />
       <Route path={`${basePath}/nested`} component={NestedSchema} />
-      <Route exact path={`${basePath}/contact`} component={ContactList} />
+      <Route exact path={`${basePath}/contacts`} component={ContactList} />
       <Route exact path={`${basePath}/contact/create`} component={ContactSchema} />
     </div>
   </Router>
