@@ -38,6 +38,10 @@ const onError = (errors) => console.log("I have", errors.length, "errors to fix"
 
 class ContactSchema extends React.Component {
 
+  constructor(props) {
+    super(props);
+  }
+
   onSubmit = ({formData}) => {
     console.log("Data submitted ", formData);
     let submitData =  JSON.stringify({
@@ -59,7 +63,8 @@ class ContactSchema extends React.Component {
       body: submitData,
     }).then((response) => {
       const basePath = "/basic_schema";
-      window.location.href =`${basePath}/contacts`;
+      //window.location.href =`${basePath}/contacts`;
+      this.props.history.push("/basic_schema/contacts");
     });
   }
 
