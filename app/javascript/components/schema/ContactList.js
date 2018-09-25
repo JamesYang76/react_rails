@@ -36,6 +36,25 @@ class ContactList extends React.Component {
           <td>{contact.name_last}</td>
           <td>{contact.email}</td>
           <td><Link to={`${basePath}/contacts/${contact.id}/edit`}>Edit</Link></td>
+          <td>
+            <Link to='#'>
+              <div onClick={() => {
+                fetch(`/api/v2/contacts/${contact.id}`,
+                  {
+                    method: 'DELETE',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    }
+                  }).then((response) => {
+                    console.log("handleDelete =" + response);
+                    let new_contacts = this.state.contacts.filter((old_contract) => old_contract.id !== contact.id)
+                    this.setState({
+                      contacts: new_contacts
+                    })
+                  })
+              }}>Delete</div>
+            </Link>
+          </td>
         </tr>
       )
     });
@@ -50,7 +69,8 @@ class ContactList extends React.Component {
               <th>First name</th>
               <th>Last name</th>
               <th>Email</th>
-              <th>Edit</th>
+              <th>Action</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
