@@ -5,12 +5,28 @@ import { BrowserRouter as Router, Route, Redirect, Link } from "react-router-dom
 const schema = {
   title: "Contact Form",
   type: "object",
-  required: ["name_first","name_last"],
+  required: ["name_first"],
   properties: {
     name_first: {type: "string", title: "First Name"},
     name_last: {type: "string", title: "Last Name"},
-    email: {type: "string", title: "Email"}
-
+    email: {type: "string", title: "Email"},
+    phones: {
+      title: "Phone Number",
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          name: {
+            type: "string",
+            title: "Name"
+          },
+          phone_number: {
+            type: "string",
+            title: "Phone Number"
+          }
+        }
+      }
+    }
   }
 };
 
@@ -27,11 +43,54 @@ const uiSchema= {
       "inputType": "email"
     },
     "ui:placeholder": "emailaddrss@gmail.com"
+  },
 
-  }
 };
 
+function ArrayFieldTemplate(props) {
+  return (
+    <div className={props.className}>
+      {props.items &&
+      props.items.map(element => (
+        <div key={element.index}>
+          <div>{element.children}</div>
+          {element.hasMoveDown && (
+            <button
+              onClick={element.onReorderClick(
+                element.index,
+                element.index + 1
+              )}>
+              Down
+            </button>
+          )}
+          {element.hasMoveUp && (
+            <button
+              onClick={element.onReorderClick(
+                element.index,
+                element.index - 1
+              )}>
+              Up
+            </button>
+          )}
+          <button onClick={element.onDropIndexClick(element.index)}>
+            Delete
+          </button>
+          <hr />
+        </div>
+      ))}
 
+      {props.canAdd && (
+        <div className="row">
+          <p className="col-xs-3 col-xs-offset-9 array-item-add text-right">
+            <button onClick={props.onAddClick} type="button">
+              ADD Phone
+            </button>
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
 
 const log = (type) => console.log.bind(console, type);
 
@@ -81,6 +140,10 @@ class ContactSchema extends React.Component {
       }
     });
 
+    formData.phones.forEach((phone) => {
+      console.log(phone.name);
+    });
+
     if ( this.props.match.params.id == undefined ) {
       fetch('/api/v2/contacts', {
         method: 'POST',
@@ -88,10 +151,16 @@ class ContactSchema extends React.Component {
           'Content-Type': 'application/vnd.api+json'
         },
         body: submitData,
-      }).then((response) => {
-        const basePath = "/basic_schema";
+      }).then((response) => {return response.json()})
+        .then((response) => {
+        console.log("response = ", response);
+
+        //const basePath = "/basic_schema";
         //window.location.href =`${basePath}/contacts`;
-        this.props.history.push("/basic_schema/contacts");
+        if(response.errors == undefined) {
+
+          this.props.history.push("/basic_schema/contacts");
+        }
       });
     }
     else {
@@ -129,6 +198,7 @@ class ContactSchema extends React.Component {
       <Form schema={schema}
             uiSchema={uiSchema}
             formData={this.state.formData}
+            ArrayFieldTemplate={ArrayFieldTemplate}
             onChange={log("changed")}
             onSubmit={this.onSubmit}
             onError={onError} />
