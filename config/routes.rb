@@ -14,9 +14,8 @@ Rails.application.routes.draw do
     end
     namespace :v2 do
       jsonapi_resources :fruits
-      jsonapi_resources :contacts do
-        jsonapi_resources :phone_numbers
-      end
+      jsonapi_resources :contacts
+      jsonapi_resources :phone_numbers
     end
   end
 end

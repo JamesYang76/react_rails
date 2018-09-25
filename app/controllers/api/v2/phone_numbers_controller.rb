@@ -1,6 +1,6 @@
 module Api
   module V2
-    class PhoneNumbers < ApiController
+    class PhoneNumbersController < ApiController
     end
   end
 end

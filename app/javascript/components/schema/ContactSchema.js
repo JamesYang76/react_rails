@@ -15,6 +15,7 @@ const schema = {
       type: "array",
       items: {
         type: "object",
+        required: ["name","phone_number"],
         properties: {
           name: {
             type: "string",
@@ -111,18 +112,31 @@ class ContactSchema extends React.Component {
     if (this.props.match.params.id == undefined) {
       return;
     }
-    let fetch_url = `/api/v2/contacts/${this.props.match.params.id}`;
+    let fetch_url = `/api/v2/contacts/${this.props.match.params.id}?include=phone-numbers`;
 
     fetch(fetch_url)
     .then((response) => {return response.json()})
     .then((responseData) => {
       console.log("responseData = ", responseData);
+      let formData = {
+        "name_first": responseData.data.attributes["name-first"],
+        "name_last": responseData.data.attributes["name-last"],
+        "email": responseData.data.attributes["email"],
+        "phones":[]
+      };
+
+      if (responseData.included != undefined) {
+        responseData.included.forEach((phone) => {
+          formData["phones"].push({
+            "id":phone.id,
+            "name" : phone.attributes["name"],
+            "phone_number" :  phone.attributes["phone-number"]
+          });
+        });
+      }
+
       this.setState({
-        formData: {
-          "name_first": responseData.data.attributes["name-first"],
-          "name_last": responseData.data.attributes["name-last"],
-          "email": responseData.data.attributes["email"]
-        }
+        formData:formData
       });
     })
   }
@@ -140,9 +154,7 @@ class ContactSchema extends React.Component {
       }
     });
 
-    formData.phones.forEach((phone) => {
-      console.log(phone.name);
-    });
+
 
     if ( this.props.match.params.id == undefined ) {
       fetch('/api/v2/contacts', {
@@ -158,6 +170,37 @@ class ContactSchema extends React.Component {
         //const basePath = "/basic_schema";
         //window.location.href =`${basePath}/contacts`;
         if(response.errors == undefined) {
+          if ( formData.phones != undefined) {
+            formData.phones.forEach((phone) => {
+              let submitData =  JSON.stringify({
+                "data":  {
+ 	                "type": "phone-numbers",
+                  "relationships": {
+                    "contact": {
+                      "data": {
+                        "type": "contacts",
+                        "id": response.data.id
+                      }
+                    }
+                  },
+                  "attributes": {
+                    "name": phone.name,
+                    "phone-number": phone.phone_number
+                  }
+                }
+              });
+              fetch('/api/v2/phone-numbers', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/vnd.api+json'
+                },
+                body: submitData,
+              }).then((response) => {return response.json()})
+                .then((response) => {
+                  console.log("phone-numbers response = ", response);
+                });
+            });
+          }
 
           this.props.history.push("/basic_schema/contacts");
         }
