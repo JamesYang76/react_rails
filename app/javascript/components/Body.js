@@ -86,6 +86,7 @@ class Body extends React.Component {
     fetch('/api/v2/fruits')
       .then((response) => {return response.json()})
       .then((responseData) => {
+          console.log(responseData);
           let fruits_arr =responseData.data.map(obj => ({
             id: obj.id,
             name: obj.attributes.name,

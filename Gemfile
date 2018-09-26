@@ -51,6 +51,7 @@ group :development, :test do
 end
 
 gem 'figaro'
+gem "jsonapi-authorization"
 gem 'jsonapi-resources'
 
 group :development do

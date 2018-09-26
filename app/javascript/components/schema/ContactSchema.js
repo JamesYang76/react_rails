@@ -159,9 +159,10 @@ class ContactSchema extends React.Component {
     if ( this.props.match.params.id == undefined ) {
       fetch('/api/v2/contacts', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/vnd.api+json'
-        },
+        headers:  new Headers({
+          "Content-Type": "application/vnd.api+json",
+          "Accept": "application/vnd.api+json"
+        }),
         body: submitData,
       }).then((response) => {return response.json()})
         .then((response) => {
