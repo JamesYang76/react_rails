@@ -1,15 +1,16 @@
 Rails.application.routes.draw do
   resources :posts
   devise_for :users
+  root to: 'home#index'
   get 'welcome/index'
 
   get 'basic_schema', action: :index, controller: 'basic_schema'
   get 'basic_schema/*other', to: 'basic_schema#index'
 
-  get 'main/index'
+  #get 'main/index'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root to: 'home#index'
+
 
   namespace :api do
     namespace :v1 do

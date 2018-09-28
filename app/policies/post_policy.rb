@@ -1,20 +1,33 @@
 class PostPolicy < ApplicationPolicy
+
+  def create?
+    true
+  end
+
   def update?
-    user.admin? or not record.published?
+    true
+  end
+
+  def edit?
+    true
+  end
+
+  def new?
+    true
+  end
+
+  def destroy?
+    true
   end
 
 
   def show?
-    false
+    true
   end
 
   class Scope < Scope
     def resolve
-      #if user.admin?
-        scope.all
-      #else
-        #scope.where(published: true)
-     # end
+      scope
     end
   end
 
