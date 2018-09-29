@@ -6,6 +6,7 @@ import NestedSchema from "./NestedSchema"
 import ContactList from "./ContactList";
 import ContactSchema from "./ContactSchema";
 import ArrayField from "./ArrayFieldTemplate";
+import CounterContainer from "../redux/CounterContainer";
 
 const basePath = "/basic_schema";
 
@@ -33,6 +34,10 @@ const Basic = () => (
         <li>
           <Link to={`${basePath}/arraytmp`}>Array Schema Form</Link>
         </li>
+
+        <li>
+          <Link to={`${basePath}/counter`}>Redux Counter</Link>
+        </li>
       </ul>
 
       <hr />
@@ -44,6 +49,7 @@ const Basic = () => (
       <Route exact path={`${basePath}/contacts/new`} component={ContactSchema} />
       <Route path={`${basePath}/contacts/:id/edit`} component={ContactSchema} />
       <Route path={`${basePath}/arraytmp`} component={ArrayField} />
+      <Route path={`${basePath}/counter`} component={CounterContainer} />
     </div>
   </Router>
 );
