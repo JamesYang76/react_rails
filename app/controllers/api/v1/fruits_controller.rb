@@ -1,28 +1,33 @@
-class Api::V1::FruitsController < ApplicationController
-  protect_from_forgery with: :null_session
-  def index
-    render json: Fruit.all
-  end
+module Api
+  module V1
+    class FruitsController < ApiController
+      #protect_from_forgery with: :null_session
 
-  def create
-    Rails.logger.debug "FruitsController create"
-    fruit = Fruit.create(fruit_params)
-    render json: fruit
-  end
+      def index
+        render json: Fruit.all
+      end
 
-  def destroy
-    Fruit.destroy(params[:id])
-  end
+      def create
+        Rails.logger.debug "FruitsController create"
+        fruit = Fruit.create(fruit_params)
+        render json: fruit, status: :created
+      end
 
-  def update
-    fruit = Fruit.find(params[:id])
-    fruit.update_attributes(fruit_params)
-    render json: fruit
-  end
+      def destroy
+        Fruit.destroy(params[:id])
+      end
 
-  private
+      def update
+        fruit = Fruit.find(params[:id])
+        fruit.update_attributes(fruit_params)
+        render json: fruit
+      end
 
-  def fruit_params
-    params.require(:fruit).permit(:id, :name, :description)
+      private
+
+      def fruit_params
+        params.require(:fruit).permit(:id, :name, :description)
+      end
+    end
   end
 end

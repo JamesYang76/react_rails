@@ -77,12 +77,12 @@ class Body extends React.Component {
   }
 
   componentDidMount(){
-    /*
+
     fetch('/api/v1/fruits.json')
       .then((response) => {return response.json()})
       .then((data) => {this.setState({ fruits: data }) });
-      */
 
+    /*
     fetch('/api/v2/fruits')
       .then((response) => {return response.json()})
       .then((responseData) => {
@@ -95,7 +95,7 @@ class Body extends React.Component {
 
           this.setState({ fruits: fruits_arr })
         }
-      )
+      )*/
   }
   render(){
     return(

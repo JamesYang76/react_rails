@@ -1,4 +1,6 @@
 class HomeController < ApplicationController
-  def index
+  def main
+    skip_authorization
+    skip_policy_scope
   end
 end

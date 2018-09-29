@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :posts
   devise_for :users
-  root to: 'home#index'
+  root to: 'home#main'
   get 'welcome/index'
 
   get 'basic_schema', action: :index, controller: 'basic_schema'
