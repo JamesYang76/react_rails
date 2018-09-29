@@ -4,23 +4,31 @@ module Api
       #protect_from_forgery with: :null_session
 
       def index
-        render json: Fruit.all
+        render json: policy_scope(Fruit.all)
       end
 
       def create
         Rails.logger.debug "FruitsController create"
         fruit = Fruit.create(fruit_params)
+        authorize fruit
         render json: fruit, status: :created
       end
 
       def destroy
+        fruit = Fruit.find(params[:id])
+        authorize fruit
         Fruit.destroy(params[:id])
+        head :no_content
       end
 
       def update
         fruit = Fruit.find(params[:id])
-        fruit.update_attributes(fruit_params)
-        render json: fruit
+        authorize fruit
+        if (fruit.update_attributes(fruit_params))
+          render json: fruit
+        else
+          render json: fruit.errors, status: :unprocessable_entity
+        end
       end
 
       private

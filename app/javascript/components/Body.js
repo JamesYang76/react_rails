@@ -37,8 +37,10 @@ class Body extends React.Component {
           'Content-Type': 'application/json'
         }
       }).then((response) => {
-        console.log("handleDelete =" + response);
-        this.deleteFruit(id)
+          console.log("handleDelete =" + response);
+          if (response.statusText === "No Content") {
+            this.deleteFruit(id)
+          }
     })
   }
 
@@ -51,7 +53,10 @@ class Body extends React.Component {
           'Content-Type': 'application/json'
         }
       }).then((response) => {
-      this.updateFruit(fruit)
+        console.log("handleDelete =" + response.statusText);
+      if (response.statusText === "OK") {
+        this.updateFruit(fruit);
+      }
     })
   }
 
