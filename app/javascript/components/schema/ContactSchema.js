@@ -196,10 +196,9 @@ class ContactSchema extends React.Component {
                   'Content-Type': 'application/vnd.api+json'
                 },
                 body: submitData,
-              }).then((response) => {return response.json()})
-                .then((response) => {
-                  console.log("phone-numbers response = ", response);
-                });
+              }).then((response) => {
+                console.log("phone-numbers response beforejson = ", response);
+              });
             });
           }
 
