@@ -6,7 +6,8 @@ const fruits = (state = [], action) => {
         {
           id: action.id,
           name: action.name,
-          description: action.description
+          description: action.description,
+          editable: action.editable
         }
       ]
     case 'DELETE_FRUIT':
@@ -14,7 +15,13 @@ const fruits = (state = [], action) => {
     case 'EDIT_FRUIT':
       return state.map(fruit =>
         (fruit.id === action.id)
-          ? {...fruit, name: action.name, description: action.description}
+          ? {...fruit, editable: action.editable}
+          : fruit
+      )
+    case 'UPDATE_FRUIT':
+      return state.map(fruit =>
+        (fruit.id === action.id)
+          ? {...fruit, name: action.name, description: action.description, editable: action.editable}
           : fruit
       )
 

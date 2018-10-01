@@ -1,5 +1,6 @@
 
-import fruits from '../components/fruits/reducers/fruits';
+import fruits from './fruits';
+import * as actions from '../actions/index'
 
 describe('fruits reducer', () => {
   it('should handle initial state', () => {
@@ -7,16 +8,16 @@ describe('fruits reducer', () => {
   });
 
   it('should handle ADD_FRUIT', () => {
-    expect(fruits([],{
-        type: 'ADD_FRUIT',
+    expect(fruits([],actions.addFruit({
         name: 'Banana',
         description: "Yellow",
         id: 0
-      })
+      }))
     ).toEqual([{
         name: 'Banana',
         description: "Yellow",
-        id: 0
+        id: 0,
+        editable: false
       }
     ]);
   });
@@ -27,10 +28,7 @@ describe('fruits reducer', () => {
         description: "Yellow",
         id: 0
       }],
-      {
-        type: 'DELETE_FRUIT',
-        id: 0
-      })
+      actions.delFruit(0))
     ).toEqual([]);
   });
 
@@ -38,18 +36,35 @@ describe('fruits reducer', () => {
     expect(fruits([ {
         name: 'Banana',
         description: "Yellow",
-        id: 0
+        id: 0,
+        editable: false
       }],
-      {
-        type: 'EDIT_FRUIT',
+      actions.editFruit(0))
+    ).toEqual([{
+      name: 'Banana',
+      description: "Yellow",
+      id: 0,
+      editable: true
+    }]);
+  });
+
+  it('should handle UPDATE_FRUIT', () => {
+    expect(fruits([ {
+        name: 'Banana',
+        description: "Yellow",
+        id: 0,
+        editable: true
+      }],
+      actions.updateFruit({
         name: 'Banana',
         description: "Not Yellow",
         id: 0
-      })
+      }))
     ).toEqual([{
       name: 'Banana',
       description: "Not Yellow",
-      id: 0
+      id: 0,
+      editable: false
     }]);
   });
 
