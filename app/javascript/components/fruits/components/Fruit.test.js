@@ -6,6 +6,7 @@ import Fruit from './Fruit'
 function setup() {
 
   const props = {
+    handleEdit: jest.fn(),
     handleUpdate: jest.fn(),
     handleDelete: jest.fn(),
     fruit: {

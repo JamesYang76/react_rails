@@ -25,6 +25,11 @@ const fruits = (state = [], action) => {
           : fruit
       )
 
+    case 'UPDATE_FRUITS':
+      return action.fruits.map( fruit => {
+        return { ...fruit, editable: action.editable}
+      });
+
     default:
       return state
   }

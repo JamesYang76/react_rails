@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-const Fruit = ({ handleUpdate,handleDelete, fruit }) => {
+const Fruit = ({ handleEdit, handleUpdate, handleDelete, fruit }) => {
 
   let input_name;
   let input_description;
@@ -18,11 +18,16 @@ const Fruit = ({ handleUpdate,handleDelete, fruit }) => {
       {name}
       {description}
       <button onClick={() => {
-        let name = this.name.value;
-        let description = this.description.value;
-        let id = fruit.id;
-        let updatedFruit = {id: id, name: name, description: description};
-        handleUpdate(updatedFruit) ;
+        if (fruit.editable === true) {
+          let name = this.name.value;
+          let description = this.description.value;
+          let id = fruit.id;
+          let updatedFruit = {id: id, name: name, description: description};
+          handleUpdate(updatedFruit);
+        } else {
+          console.log("call handleEdit")
+          handleEdit(fruit.id);
+        }
       }}>{fruit.editable? 'Submit' : 'Edit'}</button>
       <button className="delete" onClick={() => handleDelete(fruit.id)}>Delete</button>
     </div>

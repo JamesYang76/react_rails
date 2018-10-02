@@ -27,3 +27,8 @@ export const updateFruit = fruit => ({
   editable: false
 });
 
+export const updateFruits = fruits => ({
+  type: 'UPDATE_FRUITS',
+  fruits: fruits,
+  editable: false
+});

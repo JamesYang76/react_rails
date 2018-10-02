@@ -48,6 +48,27 @@ describe('fruits reducer', () => {
     }]);
   });
 
+  it('should handle UPDATE_FRUITS', () => {
+    expect(fruits([ {
+        name: 'Banana',
+        description: "Yellow",
+        id: 0,
+        editable: true
+      }],
+      actions.updateFruits([{
+        name: 'Apple',
+        description: "Green",
+        id: 0
+      }]))
+    ).toEqual([{
+      name: 'Apple',
+      description: "Green",
+      id: 0,
+      editable: false
+    }]);
+  });
+
+
   it('should handle UPDATE_FRUIT', () => {
     expect(fruits([ {
         name: 'Banana',

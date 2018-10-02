@@ -24,6 +24,15 @@ describe('fruit actions', () => {
     })
   });
 
+  it('editFruit should create UPDATE_FRUITS action', () => {
+    expect(actions.updateFruits([{ id:0, name: "Banana", description:"Yellow"}]
+    )).toEqual({
+      type: 'UPDATE_FRUITS',
+      fruits: [{ id:0, name: "Banana", description:"Yellow"}],
+      editable: false
+    })
+  });
+
   it('editFruit should create UPDATE_FRUIT action', () => {
     expect(actions.updateFruit({id:0, name: "Banana", description:"Yellow"})).toEqual({
       type: 'UPDATE_FRUIT',
