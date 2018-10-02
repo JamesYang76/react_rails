@@ -17,14 +17,47 @@ class FruitListContainer extends React.Component{
       .then((data) => { handleUpdates(data) });
   };
 
+  handleUpdateFruit = (fruit) => {
+    const { handleUpdate } = this.props;
+    fetch(`/api/v1/fruits/${fruit.id}`,
+      {
+        method: 'PUT',
+        body: JSON.stringify({fruit: fruit}),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then((response) => {
+      console.log("handleDelete =" + response.statusText);
+      if (response.statusText === "OK") {
+        handleUpdate(fruit);
+      }
+    })
+  };
+
+  handleDeleteFruit = (id) => {
+    const { handleDelete } = this.props;
+    fetch(`/api/v1/fruits/${id}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then((response) => {
+      console.log("handleDelete =" + response);
+      if (response.statusText === "No Content") {
+        handleDelete(id)
+      }
+    })
+  };
+
   render() {
-    const { fruits,handleEdit,handleDelete,handleUpdate } = this.props;
+    const { fruits,handleEdit,handleDelete } = this.props;
     return (
       <FruitList
         fruits={fruits}
         handleEdit={handleEdit}
-        handleDelete={handleDelete}
-        handleUpdate={handleUpdate}
+        handleDelete={this.handleDeleteFruit}
+        handleUpdate={this.handleUpdateFruit}
       />
     );
   }

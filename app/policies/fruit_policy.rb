@@ -9,7 +9,7 @@ class FruitPolicy < ApplicationPolicy
   end
 
   def update?
-    false
+    true
   end
 
   def edit?
@@ -21,7 +21,7 @@ class FruitPolicy < ApplicationPolicy
   end
 
   def destroy?
-    false
+    true
   end
 
   class Scope < Scope

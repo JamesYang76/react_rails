@@ -19,8 +19,8 @@ const Fruit = ({ handleEdit, handleUpdate, handleDelete, fruit }) => {
       {description}
       <button onClick={() => {
         if (fruit.editable === true) {
-          let name = this.name.value;
-          let description = this.description.value;
+          let name = input_name.value;
+          let description = input_description.value;
           let id = fruit.id;
           let updatedFruit = {id: id, name: name, description: description};
           handleUpdate(updatedFruit);
