@@ -4,7 +4,9 @@ module Api
       #protect_from_forgery with: :null_session
 
       def index
-        render json: policy_scope(Fruit.all)
+        fruit = policy_scope(Fruit.all)
+        authorize fruit
+        render json: fruit
       end
 
       def create

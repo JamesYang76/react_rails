@@ -17,6 +17,9 @@ class FruitListContainer extends React.Component{
   fetchAndStoreFruits = () => {
     let { handleUpdates } = this.props;
     handleUpdates();
+/*
+    let { fetchFruits } = this.props;
+    fetchFruits();*/
     /*
     const {handleUpdates } = this.props;
     fetch('/api/v1/fruits.json')
@@ -84,12 +87,14 @@ const mapDispatchToProps = dispatch => ({
   handleEdit: fruitId => dispatch(editFruit(fruitId)),
   handleUpdate: fruit => dispatch(updateFruit(fruit)),
   handleDelete: fruitId => dispatch(delFruit(fruitId)),
-  handleUpdates: () => actions.fetchFruits(dispatch)
+  //handleUpdates: () => actions.fetchFruits(dispatch),
+  handleUpdates: () => dispatch(actions.fetchFruits())
 });
 
 export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
+ // actions
 
 )(FruitListContainer));
 

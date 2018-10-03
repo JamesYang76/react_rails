@@ -1,12 +1,33 @@
 import * as api from "../api";
 
+/*
 export const fetchFruits = (dispatch) => {
   return api.fetchFruits()
     .then(response => {return response.json()})
     .then((data) => {dispatch(updateFruits(data))}
   );
 };
+*/
 
+export const fetchFruits = () => (dispatch,getState) => {
+  console.log("fetchFruits:", getState());
+  return api.fetchFruits()
+    .then(
+      (response) => {
+        console.log("res:" , response);
+        if (response.statusText === "OK") {
+          return response.json();
+        }
+      }
+    )
+    .then((data) => {
+      console.log("data", data);
+      if(data !== undefined) {
+        dispatch(updateFruits(data))
+      }
+    }
+    );
+};
 
 
 export const updateFruits = fruits => ({
