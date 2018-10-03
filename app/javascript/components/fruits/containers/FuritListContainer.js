@@ -1,20 +1,28 @@
 
 import { connect } from 'react-redux'
-import { editFruit, updateFruit, updateFruits,delFruit } from '../actions'
+import {editFruit, updateFruit, delFruit, updateFruits} from '../actions'
 import FruitList from '../components/FruitList'
 import React from "react";
+import { withRouter, Link } from "react-router-dom";
+import * as actions from "../actions";
+import * as api from "../api";
 
-
+const basePath = "/fruits";
 class FruitListContainer extends React.Component{
   componentDidMount() {
+    console.log(this.props);
     this.fetchAndStoreFruits();
   }
 
   fetchAndStoreFruits = () => {
+    let { handleUpdates } = this.props;
+    handleUpdates();
+    /*
     const {handleUpdates } = this.props;
     fetch('/api/v1/fruits.json')
       .then((response) => {return response.json()})
       .then((data) => { handleUpdates(data) });
+      */
   };
 
   handleUpdateFruit = (fruit) => {
@@ -53,29 +61,36 @@ class FruitListContainer extends React.Component{
   render() {
     const { fruits,handleEdit,handleDelete } = this.props;
     return (
-      <FruitList
-        fruits={fruits}
-        handleEdit={handleEdit}
-        handleDelete={this.handleDeleteFruit}
-        handleUpdate={this.handleUpdateFruit}
-      />
+      <div>
+        <FruitList
+          fruits={fruits}
+          handleEdit={handleEdit}
+          handleDelete={this.handleDeleteFruit}
+          handleUpdate={this.handleUpdateFruit}
+        />
+
+      </div>
     );
   }
 }
 
 
-const mapStateToProps = state => ({
-  fruits: state.fruits
+const mapStateToProps = (state,ownProps) => ({
+  fruits: state.fruits,
+  filter: ownProps.match.params.filter
 });
 
 const mapDispatchToProps = dispatch => ({
   handleEdit: fruitId => dispatch(editFruit(fruitId)),
   handleUpdate: fruit => dispatch(updateFruit(fruit)),
   handleDelete: fruitId => dispatch(delFruit(fruitId)),
-  handleUpdates: fruits=> dispatch(updateFruits(fruits))
+  handleUpdates: () => actions.fetchFruits(dispatch)
 });
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(FruitListContainer)
+
+)(FruitListContainer));
+
+

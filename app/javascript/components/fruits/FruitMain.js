@@ -1,15 +1,21 @@
 import React from 'react'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
+import logger from 'redux-logger'
 import { Provider } from 'react-redux'
 import App from './components/App'
 import rootReducer from './reducers'
+import { BrowserRouter as Router, Route} from "react-router-dom";
 
-const store = createStore(rootReducer);
 
+const store = createStore(rootReducer,applyMiddleware(logger));
+const basePath = "/fruits";
+console.log(process.env.NODE_ENV);
 const FruitMain = (props) => {
   return(
     <Provider store={store}>
-      <App />
+      <Router>
+        <Route path={`${basePath}/:filter?`} component={App} />
+      </Router>
     </Provider>
   )
 };

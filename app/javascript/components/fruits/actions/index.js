@@ -1,3 +1,21 @@
+import * as api from "../api";
+
+export const fetchFruits = (dispatch) => {
+  return api.fetchFruits()
+    .then(response => {return response.json()})
+    .then((data) => {dispatch(updateFruits(data))}
+  );
+};
+
+
+
+export const updateFruits = fruits => ({
+  type: 'UPDATE_FRUITS',
+  fruits: fruits,
+  editable: false
+});
+
+
 
 export const addFruit = fruit => ({
   type: 'ADD_FRUIT',
@@ -27,8 +45,3 @@ export const updateFruit = fruit => ({
   editable: false
 });
 
-export const updateFruits = fruits => ({
-  type: 'UPDATE_FRUITS',
-  fruits: fruits,
-  editable: false
-});

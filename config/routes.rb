@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'home#main'
   get 'welcome/index'
-  get 'fruits/index'
+  get 'fruits', action: :index, controller: 'fruits'
+  get 'fruits/*other', to: 'fruits#index'
 
   get 'basic_schema', action: :index, controller: 'basic_schema'
   get 'basic_schema/*other', to: 'basic_schema#index'
