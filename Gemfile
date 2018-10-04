@@ -12,6 +12,8 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem "pundit"
 
 gem 'devise'
+gem 'omniauth-facebook'
+gem 'koala'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
