@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   get 'basic_schema', action: :index, controller: 'basic_schema'
   get 'basic_schema/*other', to: 'basic_schema#index'
 
+  get 'koala/login'
+  get 'koala/login_callback'
+  get 'koala/facebook_profile'
   #get 'main/index'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
