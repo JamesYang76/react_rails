@@ -49,6 +49,7 @@ gem 'react-rails'
 
 gem 'foundation-rails'
 gem 'autoprefixer-rails'
+gem "jquery-rails"
 
 
 group :development, :test do

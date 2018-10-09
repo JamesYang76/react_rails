@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   get 'koala/login_callback'
   get 'koala/facebook_profile'
   #get 'main/index'
+  #
+  get 'foundation', action: :test, controller: 'foundation'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
