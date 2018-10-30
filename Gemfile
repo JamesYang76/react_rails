@@ -61,6 +61,8 @@ gem 'figaro'
 gem "jsonapi-authorization"
 gem 'jsonapi-resources'
 
+gem 'aws-sdk-s3'
+
 group :production, :staging do
   gem "uglifier", ">= 1.3.0"
 end
