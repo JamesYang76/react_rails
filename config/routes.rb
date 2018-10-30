@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'uploads/new'
+  get 'uploads/create'
+  get 'uploads/index'
   resources :posts
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   root to: 'home#main'
@@ -29,4 +32,6 @@ Rails.application.routes.draw do
       jsonapi_resources :phone_numbers
     end
   end
+
+  resources :uploads
 end

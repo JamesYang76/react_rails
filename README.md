@@ -1,0 +1,1 @@
+https://www.codefellows.org/blog/tutorial-how-to-upload-files-using-the-aws-sdk-gem/
